@@ -25,6 +25,7 @@ const sendMail = async (message: string) => {
 };
 
 const main = async () => {
+  console.log("Started...");
   const now = new Date();
   const night = new Date(
     now.getFullYear(),
