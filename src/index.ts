@@ -2,6 +2,7 @@ require("dotenv-safe").config();
 
 const exec = require("child_process").exec;
 import nodemailer from "nodemailer";
+import schedule from "node-schedule";
 
 const sendMail = async (message: string) => {
   let transporter = nodemailer.createTransport({
@@ -26,18 +27,8 @@ const sendMail = async (message: string) => {
 
 const main = async () => {
   console.log("Started...");
-  const now = new Date();
-  const night = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate() + 1,
-    0,
-    0,
-    0
-  );
-  const msToMidnight = night.getTime() - now.getTime();
 
-  setTimeout(() => {
+  schedule.scheduleJob("0 0 * * *", () => {
     return new Promise((resolve) => {
       exec(
         "sudo apt update && sudo apt upgrade -y",
@@ -57,7 +48,7 @@ const main = async () => {
         }
       );
     });
-  }, msToMidnight);
+  });
 };
 
 main().catch(console.error);
