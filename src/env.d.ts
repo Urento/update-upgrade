@@ -5,5 +5,7 @@ declare namespace NodeJS {
     EMAIL_SECURE: boolean;
     EMAIL_AUTH_USER: string;
     EMAIL_AUTH_PASSWORD: string;
+    EMAIL_FROM: string;
+    EMAIL_TO: string;
   }
 }
