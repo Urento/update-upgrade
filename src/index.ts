@@ -29,25 +29,22 @@ const main = async () => {
   console.log("Started...");
 
   schedule.scheduleJob("0 0 * * *", () => {
-    return new Promise((resolve) => {
-      exec(
-        "sudo apt update && sudo apt upgrade -y",
-        { maxBuffer: 1024 * 500 },
-        (error: any, stdout: any, stderr: any) => {
-          if (error) {
-            sendMail(error);
-            console.warn(error);
-          } else if (stdout) {
-            sendMail(stdout);
-            console.log(stdout);
-          } else {
-            sendMail(stderr);
-            console.log(stderr);
-          }
-          resolve(stdout ? true : false);
+    exec(
+      "sudo apt update && sudo apt upgrade -y",
+      { maxBuffer: 1024 * 500 },
+      (error: any, stdout: any, stderr: any) => {
+        if (error) {
+          sendMail(error);
+          console.warn(error);
+        } else if (stdout) {
+          sendMail(stdout);
+          console.log(stdout);
+        } else {
+          sendMail(stderr);
+          console.log(stderr);
         }
-      );
-    });
+      }
+    );
   });
 };
 
